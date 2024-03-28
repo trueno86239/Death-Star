@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Death Star</title>
+    <style>
+        #cnvs {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgb(0, 0, 0);
+        overflow: hidden;
+        z-index: -2;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="cnvs" width="1179.990" height="736.987"></canvas>
+    <script>
+        const canvas = document.getElementById("cnvs");
+        const ctx = canvas.getContext("2d");
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+    
+        // Main circle
+        const deathStarX = canvas.width / 2;
+        const deathStarY = canvas.height / 2;
+        const deathStarRadius = 250;
+    
+        ctx.beginPath();
+        ctx.arc(deathStarX, deathStarY, deathStarRadius, 0, 2 * Math.PI);
+        ctx.fillStyle = "darkgray";
+        ctx.fill();
+    
+        // Superlaser
+        ctx.beginPath();
+        ctx.arc(deathStarX + 100, deathStarY - 90, 60.5, 0, 2 * Math.PI);
+        ctx.fillStyle = "lightgray";
+        ctx.fill();
+    
+        // Equatorial Trench
+        ctx.beginPath();
+        ctx.moveTo(deathStarX - 245, deathStarY);
+        ctx.lineTo(deathStarX + 245, deathStarY);
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(deathStarX - 245, deathStarY+2);
+        ctx.lineTo(deathStarX + 245, deathStarY+2);
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(deathStarX - 245, deathStarY+4);
+        ctx.lineTo(deathStarX + 245, deathStarY+4);
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(deathStarX - 245, deathStarY - 5);
+        ctx.lineTo(deathStarX + 245, deathStarY- 5);
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(deathStarX - 245, deathStarY - 7);
+        ctx.lineTo(deathStarX + 245, deathStarY- 7);
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(deathStarX - 245, deathStarY - 9);
+        ctx.lineTo(deathStarX + 245, deathStarY- 9);
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(deathStarX - 245, deathStarY - 2.5);
+        ctx.lineTo(deathStarX + 245, deathStarY- 2.5);
+        ctx.strokeStyle = "black";
+        ctx.stroke();
+        
+        // Circle
+        ctx.beginPath();
+        ctx.arc(deathStarX, deathStarY, 245, 0, 2 * Math.PI, true);
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+    
+        function generateStars(numberOfStars) {
+            for (let i = 0; i < numberOfStars; i++) {
+                let x, y, distance;
+                do {
+                    x = Math.random() * canvas.width;
+                    y = Math.random() * canvas.height;
+                    distance = Math.sqrt(Math.pow(x - deathStarX, 2) + Math.pow(y - deathStarY, 2));
+                } while (distance < deathStarRadius + 10);
+    
+                ctx.fillStyle = "white";
+                ctx.fillRect(x, y, 2, 2);
+            }
+        }
+
+        function enhanceSuperlaser() {
+            const superlaserX = deathStarX + 100;
+            const superlaserY = deathStarY - 90;
+            const superlaserRadius = 60;
+
+            let gradient = ctx.createRadialGradient(superlaserX, superlaserY, 10, superlaserX, superlaserY, superlaserRadius);
+            gradient.addColorStop(0, 'lightgray');
+            gradient.addColorStop(1, 'darkgray');
+
+            ctx.beginPath();
+            ctx.arc(superlaserX, superlaserY, superlaserRadius, 0, 2 * Math.PI);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+        }
+        
+
+            
+        generateStars(100);
+        enhanceSuperlaser();
+
+        
+    </script>
+</body>
+</html>
